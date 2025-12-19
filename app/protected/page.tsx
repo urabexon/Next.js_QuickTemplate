@@ -1,4 +1,3 @@
-import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -31,7 +30,15 @@ export default async function ProtectedPage() {
       </div>
       <div>
         <h2 className="font-bold text-2xl mb-4">Next steps</h2>
-        <FetchDataSteps />
+        <div className="text-sm text-muted-foreground">
+          <p>You're successfully authenticated! This template includes:</p>
+          <ul className="list-disc list-inside mt-2 space-y-1">
+            <li>Supabase authentication</li>
+            <li>Google One Tap login</li>
+            <li>Protected routes</li>
+            <li>Dark mode support</li>
+          </ul>
+        </div>
       </div>
     </div>
   );
