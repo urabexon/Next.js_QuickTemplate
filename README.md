@@ -9,7 +9,7 @@
 - **Google認証** (One Tap対応)
 - **Tailwind CSS** (スタイリング)
 - **TypeScript** (型安全性)
-- **Docker** (コンテナ化)
+- **Vercel** (デプロイ)
 - **shadcn/ui** (UIコンポーネント)
 
 ## 環境構築
@@ -23,13 +23,9 @@ cd 21.Nextjs_QuickTemplate
 
 ### 2. 環境変数の設定
 
-`.example`ファイルを`.env`にコピーして必要な値を設定：
+`.env.local`ファイルを作成して以下の値を設定：
 
-```bash
-cp .example .env
-```
-
-```.env
+```.env.local
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-google-client-id
@@ -37,17 +33,9 @@ NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-google-client-id
 
 ### 3. 開発環境の起動
 
-#### 通常の開発環境
-
 ```bash
-npm install
-npm run dev
-```
-
-#### Docker環境
-
-```bash
-docker-compose up
+pnpm install
+pnpm dev
 ```
 
 ## セットアップガイド
@@ -79,9 +67,7 @@ docker-compose up
 ├── utils/                # ユーティリティ
 │   └── supabase/         # Supabase設定
 ├── lib/                  # 共通ライブラリ
-├── Dockerfile            # Dockerイメージ定義
-├── docker-compose.yml    # Docker環境構成
-└── .dockerignore         # Docker除外ファイル
+└── vercel.json           # Vercel設定
 ```
 
 ## 使用方法
@@ -97,48 +83,44 @@ docker-compose up
 
 ```bash
 # 開発サーバー起動
-npm run dev
+pnpm dev
 
 # プロダクションビルド
-npm run build
+pnpm build
 
 # プロダクションサーバー起動
-npm run start
+pnpm start
 ```
 
-### Docker コマンド
-
-```bash
-# 開発環境起動
-docker-compose up
-
-# バックグラウンド起動
-docker-compose up -d
-
-# 停止
-docker-compose down
-
-# 再ビルド
-docker-compose up --build
-```
 
 ## デプロイメント
 
-### Vercel
+### Vercelでのデプロイ
 
-1. GitHubリポジトリと連携
-2. 環境変数を設定
-3. デプロイ
+1. **GitHubリポジトリを作成**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git remote add origin <your-repo-url>
+   git push -u origin main
+   ```
 
-### Docker
+2. **Vercelでプロジェクトをインポート**
+   - [Vercel Dashboard](https://vercel.com/dashboard)にアクセス
+   - "New Project" > GitHubリポジトリを選択
+   - Framework Preset: Next.jsを選択
 
-```bash
-# イメージビルド
-docker build -t nextjs-template .
+3. **環境変数を設定**
+   - Project Settings > Environment Variables
+   - 以下を追加：
+     - `NEXT_PUBLIC_SUPABASE_URL`: SupabaseプロジェクトURL
+     - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Supabase Anon Key
+     - `NEXT_PUBLIC_GOOGLE_CLIENT_ID`: Google Client ID
 
-# コンテナ起動
-docker run -p 3000:3000 nextjs-template
-```
+4. **デプロイ**
+   - "Deploy"ボタンをクリック
+   - 自動的にビルド・デプロイされます
 
 ## カスタマイズ
 
